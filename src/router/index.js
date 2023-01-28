@@ -5,6 +5,8 @@ import Welcome from "@/components/Welcome";
 import Users from "@/components/user/Users";
 import Rights from "@/components/power/Rights";
 import Roles from "@/components/power/Roles";
+import Cate from "@/components/goods/Cate";
+
 const routes = [
   {
     path:'/login',
@@ -30,6 +32,10 @@ const routes = [
       {
         path:'/roles',
         component:Roles
+      },
+      {
+        path:'/categories',
+        component:Cate
       }
     ]
   }
