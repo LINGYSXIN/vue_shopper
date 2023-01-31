@@ -286,7 +286,6 @@ export default {
     // 级联选择器选中项变化
     handleChange(){
       this.getParamsData();
-
     },
     // tab栏被点击
     handleTabClick(){

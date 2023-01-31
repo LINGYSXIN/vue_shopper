@@ -8,6 +8,8 @@ import {ElMessage, ElMessageBox} from 'element-plus'//全局element-plus message
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css' //解决Can't resolve 'element-plus/dist/index.css' 报错
 // import installElementPlus from './plugins/element'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 // 配置全局请求基准
 //配置token，使用axios请求拦截进行添加token
@@ -23,10 +25,24 @@ const app = createApp(App)
 app.config.globalProperties.$http=axios
 app.config.globalProperties.$message=ElMessage
 app.config.globalProperties.$confirm=ElMessageBox.confirm
+//全局过滤器
+app.config.globalProperties.$filters= {
+  dateFormat (originVal){
+    const dt=new Date(originVal)
+    const y=dt.getFullYear()
+    const m=(dt.getMonth() + 1 +'').padStart(2,'0')
+    const d=(dt.getDate()+ '').padStart(2,'0')
 
+    const hh=(dt.getHours() + '').padStart(2,'0')
+    const mm=(dt.getMinutes() + '').padStart(2,'0')
+    const ss=(dt.getSeconds() + '').padStart(2,'0')
+
+    return `${y}-${m}-${d}-${hh}:${mm}:${ss}`
+  }
+}
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.use(router).use(ElementPlus).mount('#app')
+app.use(router).use(ElementPlus).component('QuillEditor', QuillEditor).mount('#app')
